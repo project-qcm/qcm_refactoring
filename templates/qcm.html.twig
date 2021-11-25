@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion | QCM Land{% endblock %}
+
+{% block body %}
+     {{ properties.question }}
+    {{ form_start(form) }}
+    {# <input type="checkbox" id="properties.reply1" name="properties.reply1" value="Bike"> #}
+    {# <label for="properties.reply1">  {{ properties.reply1 }}</label><br> #}
+    {# <input type="checkbox" id="properties.reply2" name="properties.reply2" value="Car"> #}
+    {# <label for="properties.reply2"> {{ properties.reply2 }}</label><br> #}
+    {# <input type="checkbox" id="properties.reply3" name="properties.reply3" value="Boat"> #}
+    {# <label for="properties.reply3"> {{ properties.reply3 }}</label><br> #}
+    {# <input type="checkbox" id="properties.reply4" name="properties.reply4" value="Boat"> #}
+    {# <label for="properties.reply4"> {{ properties.reply4 }}</label> #}
+
+    {{ form_rest(form) }}
+    <button class="btn btn-primary">{{ button| default('Enregister') }}</button>
+    {{ form_end(form) }}
+{% endblock %}

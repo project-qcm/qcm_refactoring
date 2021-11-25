@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello QCMHomepageController!{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function scrollL() {
+            let x = document.getElementsByClassName("row_posters")[0];
+            let step = window.outerWidth / 2;
+            x.scrollLeft -= step;
+        }
+
+        function scrollR() {
+            let x = document.getElementsByClassName("row_posters")[0];
+            let step = window.outerWidth / 2;
+            x.scrollLeft += step;
+        }
+
+        function getScrollVal() {
+            setTimeout(() => {
+                let x = document.getElementsByClassName("row_posters")[0];
+                let el = document.getElementsByClassName("left_arrow")[0];
+                if (x.scrollLeft == 0) {
+                    el.style.display = "none";
+                } else {
+                    el.style.display = "flex";
+                }
+                let el2 = document.getElementsByClassName("right_arrow")[0];
+                let right = x.scrollWidth - (x.scrollLeft + x.clientWidth) + 1;
+                if (right <= 2) {
+                    el2.style.display = "none";
+                } else {
+                    el2.style.display = "flex";
+                }
+            }, 550);
+        }
+
+        getScrollVal();
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="containerHome pb-5">
+        <div class="container containerHome-containerBody">
+            <h3 class="row_title pl-3">Trending Now</h3>
+            {#            #}
+            <div class="containerHome-containerBody_carousel px-2 mb-2">
+                <div class="row">
+                    <div class="row_posters" onscroll="getScrollVal()">
+                        {% for qcm in listLastQcm %}
+                            <div class="wrap">
+                                <img src="data/img/{{ qcm.posterMovie }}" alt="movieImage" class="row_poster"/>
+                                <h6 class="poster_title">{{ qcm.titleMovie }}</h6>
+                                <div class="poster_info">
+                                    <h5>{{ qcm.titleMovie }}</h5>
+                                    <div class="row">
+                                        <p class="font-weight-bold my-1">Réalisateur : </p>
+                                             {# <p> {{ qcm.director_movie }} </p> #}
+                                    </div>
+                                    <div class="row">
+                                        <p class="font-weight-bold my-1">Date de sortie</p>
+                                        <p>{{ qcm.dateAt |date('d-m-Y') }}</p>
+                                    </div>
+                                    <div class="block-btn text-center">
+                                        <a href="/accueil/qcm?id={{ qcm.idQcm }}" class="btn btn-custome btn-lg">Comencer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="wrap">
+                            <img src="https://image.tmdb.org/t/p/original///56v2KjBlU4XaOv9rVYEQypROD7P.jpg" alt="movieImage" class="row_poster"/>
+                            <h5 class="poster_title">Stranger Things</h5>
+                            <div class="poster_info">
+                                <h4>Stranger Things</h4>
+                                <p>When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.</p>
+                            </div>
+                        </div>
+
+                        <div class="space"></div>
+                        <div class="left_arrow scroll_button" onclick="scrollL()">
+                            <i class="arrow left"></i>
+                        </div>
+
+                        <div class="right_arrow scroll_button" onclick="scrollR()">
+                            <i class="arrow right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {#            #}
+
+            {#            #}
+            <div class="row containerHome-containerBody_body p-4 mt-2 mb-4">
+                <div class="card-columns">
+                    {% for qcm in listLastQcm %}
+                        <div class="card border" style="width: 18rem;">
+                            <a href="/accueil/qcm?id={{ qcm.idQcm }}">
+                                <img class="card-img-top" src="data/img/{{ qcm.posterMovie }} " alt="{{ qcm.posterMovie }} " class="containerHome-containerBody_body_poster" style="max-height: 381px; ">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {#            #}
+        </div>
+    </div>
+{% endblock %}
+

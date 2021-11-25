@@ -1,0 +1,81 @@
+<!-- NAVBAR_HEAD -->
+<nav class="navbar navbar-expand-lg sticky-top navbar-white menu_header {% if user is defined %} 'py-0' {% endif %}">
+    {% if user is defined %}
+        <a class="navbar-brand" href="/accueil">The QCM Land <i class="fas fa-check"></i></a>
+    {% else %}
+        <a class="navbar-brand" href="/">The QCM Land <i class="fas fa-check"></i></a>
+    {% endif %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto block-btnHeader">
+            {% if app.user or is_granted('ROLE_ADMIN') %}
+{#                <li><a href="/logout" class="nav-link btn px-3">Deconexion</a></li>#}
+            {% else %}
+                <li><a href="/inscription" class="nav-link btn mx-2 px-3">S'inscrire</a></li>
+                <li><a href="/connexion" class="nav-link btn px-3">Se connecter</a></li>
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav mr-rignt">
+            {% if app.user and app.request.uri != "/" %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+{#                        {% if user.picture %}#}
+{#                        <img class="img-xs rounded-circle" id="profilImageNav" src="../../data/pictureProfil/{{ user.picture }}" alt="Profile image"> </a>#}
+{#                    {% else %}#}
+{#                        <img class="img-xs rounded-circle" id="profilImageNav" src="../../data/pictureProfil/sign_in.png" alt="Profile image"> </a>#}
+{#                    {% endif %}#}
+                        <img class="img-xs rounded-circle" id="profilImageNav" src="../../data/pictureProfil/sign_in.png" alt="Profile image"> </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                        <div class="dropdown-header text-center">
+{#                            {% if not user.picturepicture %}#}
+{#                                <img class="img-xs rounded-circle" id="profilImageNav" src={{ "../../data/pictureProfil/" ~ user.picturepicture }} alt="Profile image"></a>#}
+{#                            {% else %}#}
+{#                                <img class="img-xs rounded-circle" id="profilImageNav" src="../../data/pictureProfil/sign_in.png" alt="Profile image"> </a>#}
+{#                            {% endif %}#}
+                                <img class="img-xs rounded-circle" id="profilImageNav" src="../../data/pictureProfil/sign_in.png" alt="Profile image"> </a>
+
+{#                            <p class="mb-1 mt-3 font-weight-semibold">{{ user.first_name }} {{ user.name }}</p>#}
+{#                            <p class="font-weight-light text-muted mb-0">{{ user.email }}</p>#}
+                        </div>
+                        <a class="dropdown-item" href="/profil">Profile<i class="dropdown-item-icon ti-dashboard"></i></a>
+{#                        {% if user.author == 1 %}#}
+{#                            <a class="dropdown-item" href="/accueil/espace-auteur">Espace Auteur <i class="dropdown-item-icon ti-dashboard"></i></a>#}
+{#                        {% endif %}#}
+                        <a class="dropdown-item">Messages<i class="dropdown-item-icon ti-comment-alt"></i></a>
+                        <a class="dropdown-item" href="/profil/setting">Paramètre<i class="dropdown-item-icon ti-comment-alt"></i></a>
+                        <a class="dropdown-item" href="/logout">Déconnetion<i class="dropdown-item-icon ti-power-off"></i></a>
+                    </div>
+                </li>
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') and app.request.uri == "/admin/admin-home" %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                        <img class="img-xs rounded-circle" id="profilImageNav" src="../../data/pictureProfil/sign_in.png" alt="Profile image"> </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                        <div class="dropdown-header text-center">
+                            <img class="img-xs rounded-circle" id="profilImageNav" src="../../data/pictureProfil/sign_in.png" alt="Profile image"> </a>
+                            <p class="mb-1 mt-3 font-weight-semibold"><{{ andmin.username }}</p>
+                            <p class="font-weight-light text-muted mb-0">admin.email</p>
+                        </div>
+                        <a class="dropdown-item" href="/admin/admin-home">Gestion Auteur<i class="dropdown-item-icon ti-comment-alt"></i></a>
+                        <a class="dropdown-item">Messages<i class="dropdown-item-icon ti-comment-alt"></i></a>
+                        <a class="dropdown-item" href="">Paramètre<i class="dropdown-item-icon ti-comment-alt"></i></a>
+                        <a class="dropdown-item" href="/admin/deconnection-admin">Déconnetion<i class="dropdown-item-icon ti-power-off"></i></a>
+                    </div>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<!-- NAVBAR_HEAD END -->
+
+
+<!-- banner message -->
+{% include "partials/banner-message.html.twig" %}
+
+
