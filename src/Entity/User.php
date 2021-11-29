@@ -4,14 +4,16 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
+ * @method string getUserIdentifier()
  */
-class User
+class User  implements UserInterface,\Serializable
 {
     function __construct()
     {
@@ -176,7 +178,7 @@ class User
         return $this;
     }
 
-    public function getRoles(): ?string
+    public function getRoles()
     {
         return $this->roles;
     }
@@ -242,5 +244,10 @@ class User
             $this->username,
             $this->password
             ) = unserialize($serialized, ['allowed_class' => false]);
+    }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement @method string getUserIdentifier()
     }
 }

@@ -4,8 +4,6 @@
 
 {% block body %}
     <div class="container containerLogin my-5 px-5 py-4 bg-white">
-        <h3 class="containerLogin-title">Connection</h3>
-        <form method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
@@ -15,24 +13,25 @@
                     You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
                 </div>
             {% endif %}
+        <h3 class="containerLogin-title">Connection</h3>
+        <form action="{{ path('login') }}" method="post">
 
             <div class="form-group ">
-                <label for="">pseudo ou email</label>
-                <input type="text" class="form-control" id="" name="email" value="{{ last_username }}" aria-describedby="emailHelp" autocomplete="email" required autofocus>
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <label for="username">pseudo ou email</label>
+                <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" aria-describedby="emailHelp" autocomplete="email" required autofocus>
+{#                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>#}
             </div>
-            {# <label for="inputEmail">Email</label> #}
-            {# <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> #}
-
-            {# <label for="inputPassword">Password</label> #}
-            {# <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required> #}
             <div class="form-group">
-                <label for="">password</label>
-                <input type="password" class="form-control" id="" name="password" autocomplete="current-password" required>
+                <label for="password">password</label>
+                <input type="password" class="form-control" id="password" name="_password" autocomplete="current-password" required>
             </div>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
+            {# <label for="inputEmail">Email</label> #}
+            {# <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> #}
+            {# <label for="inputPassword">Password</label> #}
+            {# <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required> #}
             {#
             Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
             See https://symfony.com/doc/current/security/remember_me.html

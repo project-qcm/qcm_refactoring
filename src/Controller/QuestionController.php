@@ -43,19 +43,7 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    public function convertObjToArray ($repo){
-        $prepaTest = $repo;
-        $var0 = $prepaTest->getReply1();
-        $var1 = $prepaTest->getReply2();
-        $var2 = $prepaTest->getReply3();
-        $var3 = $prepaTest->getReply4();
-        $tab = [];
-        $tab[0] = $var0;
-        $tab[1] = $var1;
-        $tab[2] = $var2;
-        $tab[3] = $var3;
-        return $tab;
-    }
+
 
     /**
      * @Route("/qcmm", name="qcmm", methods={"GET","POST"})
